@@ -23,39 +23,6 @@ The primary goals of this project were to:
 * **Beta Diversity (Jaccard) PCoA:** "TBA").
 * **Taxonomic Composition (Phylum Bar Plot):** "TBA").
 
-## Project Structure
-fiber_microbiome_repro/
-├── README.md                   # This documentation file
-├── .gitignore                  # Files/folders to ignore by Git
-├── environment/                # Conda environment definition
-│   └── env.yml                 # (Optional: Export your bioinfo_general and bioinfo_R environments here)
-├── data/                       # Stores all data files
-│   ├── raw/                    # Original, untouched raw sequencing data
-│   │   └── ena_data/           # Raw 16S FASTQ.gz files from ENA
-│   ├── metadata/               # Metadata files and processed tables from authors
-│   │   ├── filereport_read_run_PRJEB40242.tsv  # ENA manifest for raw data
-│   │   ├── meta_full.csv       # Original metadata (authors)
-│   │   ├── meta_full.tsv       # Cleaned, tab-separated metadata (used in analysis)
-│   │   ├── asv_table_full.csv  # Authors' processed ASV table (used for analysis)
-│   │   └── taxonomy_table_full.csv # Authors' processed taxonomy table (used for analysis)
-│   └── processed/              # Intermediate processed files and R objects
-│       ├── 16S_processed/      # Processed 16S data (e.g., tree, R objects)
-│       │   └── rooted_tree_newick/ # Newick tree file
-│       │   └── phyloseq_object_*.rds # Saved R phyloseq objects
-│       ├── metabolomics_data/  # (Optional: If you include metabolomics later)
-├── scripts/                    # All analysis scripts
-│   └── 16S_analysis/           # R scripts for 16S analysis
-│       └── 16S_analysis_downstream.R # Main R script
-│   # └── metabolomics_analysis/ (Optional)
-│   # └── utils/                 (Optional)
-├── results/                    # Where all generated output files (figures, tables, reports) go
-│   └── 16S_results/            # Results specific to 16S analysis
-│       └── figures/            # Generated plots (e.g., .png)
-│       └── tables/             # (Optional: Any summary tables)
-│   # └── metabolomics_results/ (Optional)
-├── notebooks/                  # (Optional: Jupyter/R Markdown if you use them)
-
-
 ## Computational Environment Setup
 * **Operating System:** macOS (Started on WSL).
 * **Conda:** Utilized Miniconda for environment management.
