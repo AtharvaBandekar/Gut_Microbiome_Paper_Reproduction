@@ -30,7 +30,7 @@ The primary goals of this project were to:
     * Dedicated environments created to manage conflicting dependencies:
         * `bioinfo_general`: Python 3.8, `sra-tools` (for `fastq-dump`), `fastqc`, `multiqc`, `pandas`.
         * `bioinfo_R`: R 4.x, `tidyverse`, `phyloseq`, `vegan`, `ape` (for R-based analysis).
-* **R & RStudio:** R (version X.x.x) and RStudio Desktop (version Y.y.y) for analysis execution.
+* **R & RStudio:** R (version 4.5.1) and RStudio Desktop (version 2025.05.1) for analysis execution.
 * **Key Troubleshooting Overcome:**
     * **WSL/Windows to macOS Migration:** Successfully re-established entire pipeline on a new operating system.
     * **Persistent `wget`/`curl` `404` errors:** Solved by understanding HTML redirects and using `curl -L -O` for `raw.githubusercontent.com` URLs, and manual browser downloads for `data.qiime2.org` URLs.
