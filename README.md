@@ -137,7 +137,7 @@ Atharva Bandekar
 [LinkedIn](https://www.linkedin.com/in/atharva-bandekar/)
 
 ## Declarations  
-As I am new to computational biology, I have used AI (Google Gemini) in an assitive capacity to help me understand bioinformatics workflows and various packages required for these workflows. Additioanlly, I also used AI (Google Gemini), to help strcuture the generate markdown code for this README.md file.  
+As I am new to computational biology, I have used AI (Google Gemini) in an assistive capacity to help me understand bioinformatics workflows and various packages required for these workflows. Additioanlly, I also used AI (Google Gemini), to help strcuture the generate markdown code for this README.md file.  
 
 All code execution, problem-solving, and learning was performed by myself, Atharva Bandekar.  
 
