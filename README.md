@@ -1,7 +1,7 @@
 # Gut Microbiome & Dietary Fiber: A Bioinformatics Paper Reproduction
 
 ## Project Overview
-This repository details a bioinformatics project focused on reproducing key findings from the paper "[Gut microbiome variation modulates the effects of dietary fiber on host metabolism](https://doi.org/10.1186/s40168-021-01061-6)" by Murga-Garrido et al. (2021). The project my skills in bioinformatics workflows, data analysis, and data visualizations.
+This repository details a bioinformatics project focused on reproducing key findings from the paper "[Gut microbiome variation modulates the effects of dietary fiber on host metabolism](https://doi.org/10.1186/s40168-021-01061-6)" by Murga-Garrido et al. (2021). The project showcases my skills in bioinformatics workflows, data analysis, and data visualizations.
 
 ## Original Paper
 * **Title:** Gut microbiome variation modulates the effects of dietary fiber on host metabolism
