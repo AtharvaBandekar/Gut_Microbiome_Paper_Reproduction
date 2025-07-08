@@ -1,7 +1,7 @@
 # Gut Microbiome & Dietary Fiber: A Bioinformatics Paper Reproduction
 
 ## Project Overview
-This repository details a bioinformatics project focused on reproducing key findings from the paper "[Gut microbiome variation modulates the effects of dietary fiber on host metabolism](https://doi.org/10.1186/s40168-021-01061-6)" by Murga-Garrido et al. (2021). The project demonstrates proficiency in data acquisition, processing, analysis, and visualization of 16S rRNA gene sequencing data, using a R-based workflow.
+This repository details a bioinformatics project focused on reproducing key findings from the paper "[Gut microbiome variation modulates the effects of dietary fiber on host metabolism](https://doi.org/10.1186/s40168-021-01061-6)" by Murga-Garrido et al. (2021). The project my skills in bioinformatics workflows, data analysis, and data visualizations.
 
 ## Original Paper
 * **Title:** Gut microbiome variation modulates the effects of dietary fiber on host metabolism
@@ -12,16 +12,16 @@ This repository details a bioinformatics project focused on reproducing key find
 
 ## Goals of this Reproduction
 The primary goals of this project were to:
-* Reproduce the 16S rRNA gene sequencing data analysis pipeline to understand microbial community composition and diversity.
-* Gain hands-on experience with command-line tools, R programming for bioinformatics, and data visualization.
+* Reproduce the 16S rRNA gene sequencing data analysis pipeline.
+* Gain experience with command-line tools, R programming for bioinformatics, and data visualization.
 * Demonstrate skills in managing computational environments and troubleshooting complex bioinformatics workflows.
 * (Initially aimed to include RNA-seq and Metabolomics, but scopes were adjusted due to computational constraints and data availability challenges.)
 
-## Key Findings (Summary of Your Results)
+## Key Findings
 *(This is where you briefly describe what you found from your generated plots. For example:)*
-* **Alpha Diversity (Shannon):** Briefly describe how Shannon diversity varied across different diets (e.g., "Shannon diversity appeared similar across all dietary groups, suggesting no major impact on within-sample diversity.").
-* **Beta Diversity (Jaccard) PCoA:** Describe how samples clustered (e.g., "PCoA based on Jaccard distance showed clear separation of microbial communities by diet type, indicating distinct community structures induced by different fibers.").
-* **Taxonomic Composition (Phylum Bar Plot):** Summarize dominant phyla and how their relative abundances shifted across diets (e.g., "At the phylum level, Firmicutes and Bacteroidetes were dominant across all diets. Notable shifts were observed, such as an increase in [Phylum X] in the [Diet Y] group.").
+* **Alpha Diversity (Shannon):** "TBA").
+* **Beta Diversity (Jaccard) PCoA:** "TBA").
+* **Taxonomic Composition (Phylum Bar Plot):** "TBA").
 
 ## Project Structure
 fiber_microbiome_repro/
@@ -57,8 +57,7 @@ fiber_microbiome_repro/
 
 
 ## Computational Environment Setup
-*(This is where you detail your setup and acknowledge the troubleshooting. This is a very strong section for a portfolio!)*
-* **Operating System:** macOS (mention that initial setup was on Windows/WSL).
+* **Operating System:** macOS (Started on WSL).
 * **Conda:** Utilized Miniconda for environment management.
     * Channels configured: `conda-forge`, `bioconda`, `defaults`.
     * Dedicated environments created to manage conflicting dependencies:
@@ -77,7 +76,6 @@ fiber_microbiome_repro/
     * **ASV/Taxonomy Feature ID Mismatch:** Addressed the fundamental feature ID mismatch between `asv_table_full.csv` and `taxonomy_table_full.csv` by acknowledging the limitation and adjusting the analysis approach in R.
 
 ## Data Acquisition
-*(Explain where the data came from and how you got it.)*
 * **Raw 16S Amplicon Data:** Obtained 88 paired-end FASTQ files from the European Nucleotide Archive (ENA) (Accession: PRJEB40242) using `fastq-dump`. This data forms the basis of the pipeline, though the processed versions were used for final plots.
 * **Processed Data & Metadata:**
     * `meta_full.csv`: Comprehensive sample metadata.
@@ -87,7 +85,6 @@ fiber_microbiome_repro/
 * **Phylogenetic Tree:** The unrooted phylogenetic tree (`tree.nwk`) was derived from the authors' `rooted-tree.qza` artifact (from a QIIME 2 pipeline not fully reproducible here) by exporting it via `view.qiime2.org`.
 
 ## Analysis Workflow
-*(This is where you explain the steps in your R script, relating them to the paper's methods.)*
 The analysis was performed using R (version X.x.x) and RStudio, primarily leveraging the `tidyverse` and `phyloseq` packages.
 
 1.  **Data Loading & Initial Inspection:**
@@ -100,7 +97,7 @@ The analysis was performed using R (version X.x.x) and RStudio, primarily levera
     * The phylogenetic tree (`tree.nwk`) was loaded and integrated into the `phyloseq` object.
 
 3.  **Data Normalization (Rarefaction):**
-    * Samples were rarefied to a depth of `[YOUR RAREFACTION DEPTH HERE, e.g., 26971 or 3500]` reads per sample using `rarefy_even_depth` to account for varying sequencing depths. This normalized the data for diversity comparisons.
+    * Samples were rarefied to a depth of 2671 reads per sample using `rarefy_even_depth` to account for varying sequencing depths. This normalized the data for diversity comparisons.
 
 4.  **Alpha Diversity Analysis:**
     * Shannon diversity index (`estimate_richness`) and Faith's Phylogenetic Diversity (PD) were calculated to assess diversity within individual samples.
@@ -118,7 +115,6 @@ The analysis was performed using R (version X.x.x) and RStudio, primarily levera
     * A stacked bar plot was generated to visualize the relative abundance of dominant phyla across different diets.
 
 ## Results
-*(You can embed your generated `.png` plots here using Markdown syntax `![Alt Text](path/to/image.png)`. Make sure to save your plots from RStudio into `results/16S_results/figures/`)*
 
 * **Alpha Diversity (Shannon by Diet):** ![Shannon Alpha Diversity](results/16S_results/figures/alpha_diversity_shannon.png)
 * **Alpha Diversity (Faith's PD by Diet):** ![Faith's PD Alpha Diversity](results/16S_results/figures/alpha_diversity_faith.png)
@@ -128,7 +124,6 @@ The analysis was performed using R (version X.x.x) and RStudio, primarily levera
 * **Taxonomic Composition (Phylum Bar Plot by Diet):** ![Phylum Bar Plot](results/16S_results/figures/phylum_barplot.png)
 
 ## Limitations & Future Work
-*(This is a very important section for a paper reproduction, showing critical thinking.)*
 * **Computational Constraints:** Initial attempts to run computationally intensive steps (e.g., DADA2 denoising on raw data, full QIIME 2 framework, RNA-seq analysis) were challenging due to system RAM limitations (8GB, later upgraded to 16GB). This necessitated a pivot to using authors' pre-processed data for parts of the analysis.
 * **QIIME 2 Installation Issues:** Despite extensive troubleshooting, a stable command-line QIIME 2 environment could not be established on the MacBook, leading to a pivot to R/Python for all downstream analyses.
 * **Data Mismatches:** A significant challenge was the observed mismatch in feature (ASV) IDs between the authors' `asv_table_full.csv` and `taxonomy_table_full.csv` from the `extdata` folder. This prevented direct combination of all data into a single `phyloseq` object and limited the scope of some taxonomic analyses (e.g., precise taxonomic filtering for specific phyla).
@@ -171,10 +166,7 @@ To reproduce this project:
     * Run the R script. Plots will be generated and saved.
 
 ## Contact
-*(Your name and contact information, e.g., your LinkedIn or GitHub profile link.)*
-
-## License
-*(Optional: Choose a license like MIT, Apache 2.0, etc. A common practice is to create a `LICENSE` file in your repo.)*
+Atharva Bandekar
+[LinkedIn](https://www.linkedin.com/in/atharva-bandekar/)
 
 ---
-*(Replace `YOUR_GITHUB_USERNAME` and `YOUR_REPO_NAME` with your actual GitHub details.)*
