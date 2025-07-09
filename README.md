@@ -18,9 +18,9 @@ The primary goals of this project were to:
 * (Initially aimed to include RNA-seq, but scopes were adjusted due to computational constraints and data availability challenges.)
 
 ## Key Findings
-* [cite_start]**Alpha Diversity (Shannon):** Alpha diversity, measured by the Shannon index, showed noticeable differences across dietary groups[cite: 1]. The Inulin diet, in particular, appeared to exhibit a slightly lower median diversity and a narrower interquartile range compared to the Assorted Fiber, Cellulose, and Pectin diets.
-* [cite_start]**Beta Diversity (Jaccard) PCoA:** Beta diversity analysis, using Jaccard distance, revealed distinct clustering of microbial communities based on diet type[cite: 2]. The Inulin and Pectin groups showed more separation in the ordination space, with less overlap compared to the Assorted Fiber and Cellulose groups, suggesting unique community structures induced by these specific fibers.
-* [cite_start]**Taxonomic Composition (Phylum Bar Plot):** At the phylum level, Firmicutes and Bacteroidetes were consistently the most dominant groups across all dietary interventions[cite: 3]. The Inulin diet showed a subtle but visible increase in the relative abundance of Verrucomicrobia (represented by a thin pink band) compared to other diets, which is often associated with the Akkermansia genus.
+* **Alpha Diversity (Shannon):** Alpha diversity, measured by the Shannon index, showed noticeable differences across dietary groups. The Inulin diet, in particular, appeared to exhibit a slightly lower median diversity and a narrower interquartile range compared to the Assorted Fiber, Cellulose, and Pectin diets.
+* **Beta Diversity (Jaccard) PCoA:** Beta diversity analysis, using Jaccard distance, revealed distinct clustering of microbial communities based on diet type. The Inulin and Pectin groups showed more separation in the ordination space, with less overlap compared to the Assorted Fiber and Cellulose groups, suggesting unique community structures induced by these specific fibers.
+* **Taxonomic Composition (Phylum Bar Plot):** At the phylum level, Firmicutes and Bacteroidetes were consistently the most dominant groups across all dietary interventions. The Inulin diet showed a subtle but visible increase in the relative abundance of Verrucomicrobia (represented by a thin pink band) compared to other diets, which is often associated with the Akkermansia genus.
 
 ## Computational Environment Setup
 * **Operating System:** macOS (Started on WSL).
