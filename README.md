@@ -15,13 +15,12 @@ The primary goals of this project were to:
 * Reproduce the 16S rRNA gene sequencing data analysis pipeline.
 * Gain experience with command-line tools, R programming for bioinformatics, and data visualization.
 * Demonstrate skills in managing computational environments and troubleshooting complex bioinformatics workflows.
-* (Initially aimed to include RNA-seq and Metabolomics, but scopes were adjusted due to computational constraints and data availability challenges.)
+* (Initially aimed to include RNA-seq, but scopes were adjusted due to computational constraints and data availability challenges.)
 
 ## Key Findings
-*(This is where you briefly describe what you found from your generated plots. For example:)*
-* **Alpha Diversity (Shannon):** "TBA").
-* **Beta Diversity (Jaccard) PCoA:** "TBA").
-* **Taxonomic Composition (Phylum Bar Plot):** "TBA").
+* [cite_start]**Alpha Diversity (Shannon):** Alpha diversity, measured by the Shannon index, showed noticeable differences across dietary groups[cite: 1]. The Inulin diet, in particular, appeared to exhibit a slightly lower median diversity and a narrower interquartile range compared to the Assorted Fiber, Cellulose, and Pectin diets.
+* [cite_start]**Beta Diversity (Jaccard) PCoA:** Beta diversity analysis, using Jaccard distance, revealed distinct clustering of microbial communities based on diet type[cite: 2]. The Inulin and Pectin groups showed more separation in the ordination space, with less overlap compared to the Assorted Fiber and Cellulose groups, suggesting unique community structures induced by these specific fibers.
+* [cite_start]**Taxonomic Composition (Phylum Bar Plot):** At the phylum level, Firmicutes and Bacteroidetes were consistently the most dominant groups across all dietary interventions[cite: 3]. The Inulin diet showed a subtle but visible increase in the relative abundance of Verrucomicrobia (represented by a thin pink band) compared to other diets, which is often associated with the Akkermansia genus.
 
 ## Computational Environment Setup
 * **Operating System:** macOS (Started on WSL).
@@ -52,42 +51,20 @@ The primary goals of this project were to:
 * **Phylogenetic Tree:** The unrooted phylogenetic tree (`tree.nwk`) was derived from the authors' `rooted-tree.qza` artifact (from a QIIME 2 pipeline not fully reproducible here) by exporting it via `view.qiime2.org`.
 
 ## Analysis Workflow
-The analysis was performed using R (version X.x.x) and RStudio, primarily leveraging the `tidyverse` and `phyloseq` packages.
+The analysis was performed using R (version 4.5.1) and RStudio, primarily leveraging the `tidyverse` and `phyloseq` packages.
 
-1.  **Data Loading & Initial Inspection:**
-    * Raw ASV counts (`asv_table_full.csv`), raw taxonomy (`taxonomy_table_full.csv`), and sample metadata (`meta_full.tsv`) were loaded into R data frames.
-    * Crucially, specific R behaviors (prepending 'X' to numeric column names) were handled to ensure ASV ID consistency.
+1.  **Data Loading & Initial Preparation:** Raw ASV counts, raw taxonomy, and sample metadata were loaded. Critical R behaviors (prepending 'X' to numeric column names) were handled to ensure ASV ID consistency. An initial `phyloseq` object was created with ASV counts and sample metadata.
     * **Limitation:** Due to an observed fundamental mismatch in feature (ASV) IDs between the author's `asv_table_full.csv` and `taxonomy_table_full.csv`, a full `phyloseq` object with integrated taxonomy could not be created directly. Downstream analyses requiring matched ASV counts and taxonomy were performed on the intersection of available features.
-
-2.  **Phyloseq Object Creation:**
-    * An initial `phyloseq` object was created with ASV counts and sample metadata.
-    * The phylogenetic tree (`tree.nwk`) was loaded and integrated into the `phyloseq` object.
-
-3.  **Data Normalization (Rarefaction):**
-    * Samples were rarefied to a depth of 2671 reads per sample using `rarefy_even_depth` to account for varying sequencing depths. This normalized the data for diversity comparisons.
-
-4.  **Alpha Diversity Analysis:**
-    * Shannon diversity index (`estimate_richness`) and Faith's Phylogenetic Diversity (PD) were calculated to assess diversity within individual samples.
-    * Box plots were generated to visualize alpha diversity across different dietary groups.
-
-5.  **Beta Diversity Analysis:**
-    * Jaccard, Unweighted UniFrac, and Weighted UniFrac distances were calculated (`distance` function) to quantify differences in microbial community composition between samples.
-    * Principal Coordinates Analysis (PCoA) was performed (`ordinate` function) on these distance matrices.
-    * PCoA plots were generated, colored by `Diet` type, to visualize community clustering.
-
-6.  **Basic Taxonomic Composition (Phylum Level Bar Plot):**
-    * Common features between the ASV table and taxonomy table were identified.
-    * For these common features, ASV counts were aggregated to the Phylum level (`tax_glom`).
-    * Relative abundances were calculated (`transform_sample_counts`).
-    * A stacked bar plot was generated to visualize the relative abundance of dominant phyla across different diets.
+2.  **Phylogenetic Tree Integration:** The phylogenetic tree (`tree.nwk`) was loaded and integrated into the `phyloseq` object.
+3.  **Data Normalization (Rarefaction):** Samples were rarefied to a depth of 2671 reads per sample using `rarely_even_depth` to account for varying sequencing depths, normalizing data for diversity comparisons.
+4.  **Alpha Diversity Analysis:** Shannon diversity index and Faith's Phylogenetic Diversity (PD) were calculated, and box plots generated to visualize diversity within samples across different dietary groups.
+5.  **Beta Diversity Analysis:** Jaccard, Unweighted UniFrac, and Weighted UniFrac distances were calculated. Principal Coordinates Analysis (PCoA) was performed on these distances, and plots generated, colored by `Diet` type, to visualize community clustering.
+6.  **Basic Taxonomic Composition (Phylum Level Bar Plot):** Common features between the ASV table and taxonomy table were identified. Counts were aggregated to the Phylum level, relative abundances calculated, and a stacked bar plot generated to visualize the composition across diets.
 
 ## Results
 
 * **Alpha Diversity (Shannon by Diet):** ![Shannon Alpha Diversity](results/16S_results/figures/alpha_diversity_shannon.png)
-* **Alpha Diversity (Faith's PD by Diet):** ![Faith's PD Alpha Diversity](results/16S_results/figures/alpha_diversity_faith.png)
 * **Beta Diversity (Jaccard PCoA by Diet):** ![Jaccard Beta Diversity](results/16S_results/figures/beta_diversity_jaccard.png)
-* **Beta Diversity (Unweighted UniFrac PCoA by Diet):** ![Unweighted UniFrac Beta Diversity](results/16S_results/figures/beta_diversity_unifrac_unweighted.png)
-* **Beta Diversity (Weighted UniFrac PCoA by Diet):** ![Weighted UniFrac Beta Diversity](results/16S_results/figures/beta_diversity_unifrac_weighted.png)
 * **Taxonomic Composition (Phylum Bar Plot by Diet):** ![Phylum Bar Plot](results/16S_results/figures/phylum_barplot.png)
 
 ## Limitations & Future Work
