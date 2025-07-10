@@ -21,6 +21,10 @@ The primary goals of this project were to:
 * **Alpha Diversity (Shannon):** Alpha diversity, measured by the Shannon index, showed noticeable differences across dietary groups. The Inulin diet, in particular, appeared to exhibit a slightly lower median diversity and a narrower interquartile range compared to the Assorted Fiber, Cellulose, and Pectin diets.
 * **Beta Diversity (Jaccard) PCoA:** Beta diversity analysis, using Jaccard distance, revealed distinct clustering of microbial communities based on diet type. The Inulin and Pectin groups showed more separation in the ordination space, with less overlap compared to the Assorted Fiber and Cellulose groups, suggesting unique community structures induced by these specific fibers.
 * **Taxonomic Composition (Phylum Bar Plot):** At the phylum level, Firmicutes and Bacteroidetes were consistently the most dominant groups across all dietary interventions. The Inulin diet showed a subtle but visible increase in the relative abundance of Verrucomicrobia (represented by a thin pink band) compared to other diets, which is often associated with the Akkermansia genus.
+* **Short-Chain Fatty Acids (SCFAs):** Analysis of cecal SCFAs (Acetate, Propionate, Butyrate, Total SCFA) revealed clear diet-specific patterns. Pectin and Assorted Fiber diets generally showed higher concentrations across all measured SCFAs (Acetate, Propionate, Butyrate, Total SCFA) compared to Cellulose and Inulin diets. The Inulin diet, while showing intermediate levels for some SCFAs, notably had the lowest median for Propionate.
+* **Host Metabolic Phenotypes:** Key host metabolic phenotypes also varied by diet.
+    * **Epididymal Fat Pad (% of BW) & Liver Triglycerides:** Both metrics showed similar trends, with the Cellulose and Assorted Fiber diets associated with generally higher values, while the Pectin and Inulin diets resulted in lower values, particularly for Pectin.
+    * **Glucose (arbitrary units):** The Cellulose diet was associated with the highest median glucose levels, while the Inulin diet showed the lowest median. Assorted Fiber and Pectin diets had intermediate glucose levels.  
 
 ## Computational Environment Setup
 * **Operating System:** macOS (Started on WSL).
@@ -39,7 +43,7 @@ The primary goals of this project were to:
         * **Solution:** Implemented strategic **environment splitting** (`bioinfo_general` for general tools, `bioinfo_R` for R-based tools) to isolate conflicting dependencies, which successfully resolved the issue.
     * **`qiime` command not found:** Debugged `q2cli` installation issues (ultimately leading to the decision to pivot to R/Python directly).
     * **Metadata Formatting (`meta_full.csv` to `.tsv`):** Successfully identified and fixed issues with `""` headers and CSV vs. TSV formatting required by R.
-    * **ASV/Taxonomy Feature ID Mismatch:** Addressed the fundamental feature ID mismatch between `asv_table_full.csv` and `taxonomy_table_full.csv` by acknowledging the limitation and adjusting the analysis approach in R.
+    * **ASV/Taxonomy Feature ID Mismatch:** Addressed the fundamental feature ID mismatch between `asv_table_full.csv` and `taxonomy_table_full.csv` by acknowledging the limitation and adjusting the analysis approach in R.  
 
 ## Data Acquisition
 * **Raw 16S Amplicon Data:** Obtained 88 paired-end FASTQ files from the European Nucleotide Archive (ENA) (Accession: PRJEB40242) using `fastq-dump`. This data forms the basis of the pipeline, though the processed versions were used for final plots.
@@ -49,6 +53,10 @@ The primary goals of this project were to:
     * `taxonomy_table_full.csv`: Authors' processed taxonomy table.
     * These files were downloaded from the authors' GitHub repository `https://github.com/KiRinHong/fiberNmicrobiome/tree/main/extdata`.
 * **Phylogenetic Tree:** The unrooted phylogenetic tree (`tree.nwk`) was derived from the authors' `rooted-tree.qza` artifact (from a QIIME 2 pipeline not fully reproducible here) by exporting it via `view.qiime2.org`.
+* **Processed Metabolomics Data:**
+    * `meta_scfa.csv`: Processed Short-Chain Fatty Acid (SCFA) concentrations.
+    * `meta_subset.csv`: Processed main serum metabolite concentrations.
+    * These files were downloaded from the authors' GitHub repository `https://github.com/KiRinHong/fiberNmicrobiome/tree/main/extdata`.
 
 ## Analysis Workflow
 The analysis was performed using R (version 4.5.1) and RStudio, primarily leveraging the `tidyverse` and `phyloseq` packages.
@@ -60,54 +68,27 @@ The analysis was performed using R (version 4.5.1) and RStudio, primarily levera
 4.  **Alpha Diversity Analysis:** Shannon diversity index and Faith's Phylogenetic Diversity (PD) were calculated, and box plots generated to visualize diversity within samples across different dietary groups.
 5.  **Beta Diversity Analysis:** Jaccard, Unweighted UniFrac, and Weighted UniFrac distances were calculated. Principal Coordinates Analysis (PCoA) was performed on these distances, and plots generated, colored by `Diet` type, to visualize community clustering.
 6.  **Basic Taxonomic Composition (Phylum Level Bar Plot):** Common features between the ASV table and taxonomy table were identified. Counts were aggregated to the Phylum level, relative abundances calculated, and a stacked bar plot generated to visualize the composition across diets.
+7.  **Metabolomics Analysis:** Processed SCFA and host metabolic phenotype data (`meta_scfa.csv`, `meta_subset.csv`) were loaded and analyzed.
+    * Plots similar to Figure S9 (SCFA levels) and Figure 2 (host phenotypes) were generated to visualize changes across dietary groups.
+    * **Note:** The provided `meta_scfa.csv` file did not contain data for all SCFAs/BCFAs mentioned in the original paper's Figure S9 (e.g., Isobutyrate, Valerate, Isovalerate).
 
 ## Results
 
 * **Alpha Diversity (Shannon by Diet):** ![Shannon Alpha Diversity](results/16S_results/figures/alpha_diversity_shannon.png)
 * **Beta Diversity (Jaccard PCoA by Diet):** ![Jaccard Beta Diversity](results/16S_results/figures/beta_diversity_jaccard.png)
 * **Taxonomic Composition (Phylum Bar Plot by Diet):** ![Phylum Bar Plot](results/16S_results/figures/phylum_barplot.png)
+* **Short-Chain Fatty Acids (SCFAs):** ![SCFA Boxplots](results/metabolomics_results/figures/scfa_boxplot.png)
+* **Host Metabolic Phenotypes:** ![Host Phenotypes Boxplots](results/metabolomics_results/figures/host_phenotypes_boxplot.png)
 
 ## Limitations & Future Work
 * **Computational Constraints:** Initial attempts to run computationally intensive steps (e.g., DADA2 denoising on raw data, full QIIME 2 framework, RNA-seq analysis) were challenging due to system RAM limitations (8GB, later upgraded to 16GB). This necessitated a pivot to using authors' pre-processed data for parts of the analysis.
 * **QIIME 2 Installation Issues:** Despite extensive troubleshooting, a stable command-line QIIME 2 environment could not be established on the MacBook, leading to a pivot to R/Python for all downstream analyses.
 * **Data Mismatches:** A significant challenge was the observed mismatch in feature (ASV) IDs between the authors' `asv_table_full.csv` and `taxonomy_table_full.csv` from the `extdata` folder. This prevented direct combination of all data into a single `phyloseq` object and limited the scope of some taxonomic analyses (e.g., precise taxonomic filtering for specific phyla).
-* **Metabolomics Data Acquisition:** Difficulty in reliably acquiring processed metabolomics result tables from public sources led to the decision to defer this analysis.
 * **Future Work:**
     * Re-attempt a full, end-to-end 16S pipeline from raw reads (using DADA2 in R, or on an HPC) to validate findings.
     * Explore alternative metabolomics data sources or methods if raw data becomes available.
     * Perform statistical tests on alpha/beta diversity differences (e.g., ANOVA, PERMANOVA) to quantify observations.
     * Conduct differential abundance analysis (e.g., ANCOM, DESeq2, or LEfSe in R/Python) to identify specific differentially abundant taxa.
-
-## Usage & Reproducibility
-To reproduce this project:
-1.  **Clone this repository:** `git clone https://github.com/YOUR_GITHUB_USERNAME/YOUR_REPO_NAME.git`
-2.  **Navigate to the project root:** `cd YOUR_REPO_NAME`
-3.  **Set up Conda environments:**
-    * Ensure Miniconda is installed.
-    * Run `conda config --add channels defaults` ... (as in setup instructions).
-    * `conda create -n bioinfo_general python=3.8` ... (install packages).
-    * `conda create -n bioinfo_R r-base` ... (install R packages).
-4.  **Download Raw Data:**
-    * `cd data/metadata/`
-    * `curl -L -O 'https://www.ebi.ac.uk/ena/browser/api/tsv/PRJEB40242?fields=...'`
-    * `awk -F'\t' 'NR>1 {print $1}' PRJEB40242.tsv > 16S_amplicon_accessions.txt`
-    * `cd ../raw/ena_data/`
-    * `while IFS= read -r accession; do ... fastq-dump ... done < ...`
-5.  **Download Processed Data:**
-    * `cd data/metadata/`
-    * `curl -O https://raw.githubusercontent.com/KiRinHong/fiberNmicrobiome/main/extdata/meta_full.csv`
-    * `curl -O https://raw.githubusercontent.com/KiRinHong/fiberNmicrobiome/main/extdata/asv_table_full.csv`
-    * `curl -O https://raw.githubusercontent.com/KiRinHong/fiberNmicrobiome/main/extdata/taxonomy_table_full.csv`
-    * `curl -O https://raw.githubusercontent.com/KiRinHong/fiberNmicrobiome/main/extdata/tree.nwk` (or manually export from QIIME2).
-6.  **Prepare Metadata:**
-    * Manual edit `meta_full.csv` header.
-    * Create `convert_metadata.py` script.
-    * `conda activate bioinfo_general` and `python convert_metadata.py`.
-7.  **Run R Analysis:**
-    * Open RStudio, set working directory to project root.
-    * Open `scripts/16S_analysis/16S_analysis_downstream.R`.
-    * `conda activate bioinfo_R`
-    * Run the R script. Plots will be generated and saved.
 
 ## Contact
 Atharva Bandekar  
