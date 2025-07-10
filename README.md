@@ -81,7 +81,7 @@ The analysis was performed using R (version 4.5.1) and RStudio, primarily levera
 * **Host Metabolic Phenotypes:** ![Host Phenotypes Boxplots](results/metabolomics_results/figures/host_phenotypes_boxplot.png)
 
 ## Limitations & Future Work
-* **Computational Constraints:** Initial attempts to run computationally intensive steps (e.g., DADA2 denoising on raw data, full QIIME 2 framework, RNA-seq analysis) were challenging due to system RAM limitations (8GB, later upgraded to 16GB). This necessitated a pivot to using authors' pre-processed data for parts of the analysis.
+* **Computational Constraints:** Initial attempts to run computationally intensive steps (e.g., DADA2 denoising on raw data, full QIIME 2 framework, RNA-seq analysis) were challenging due to system RAM limitations. This necessitated a pivot to using authors' pre-processed data for parts of the analysis.
 * **QIIME 2 Installation Issues:** Despite extensive troubleshooting, a stable command-line QIIME 2 environment could not be established on the MacBook, leading to a pivot to R/Python for all downstream analyses.
 * **Data Mismatches:** A significant challenge was the observed mismatch in feature (ASV) IDs between the authors' `asv_table_full.csv` and `taxonomy_table_full.csv` from the `extdata` folder. This prevented direct combination of all data into a single `phyloseq` object and limited the scope of some taxonomic analyses (e.g., precise taxonomic filtering for specific phyla).
 * **Future Work:**
