@@ -163,9 +163,9 @@ message("\n16S Amplicon analysis complete (with data limitations noted). Ready f
 
 # --- 8. Save Results (Optional) ---
 # Ensure 'results/16S_results/figures/' directory exists before running to save plots.
-ggsave("results/16S_results/figures/alpha_diversity_shannon.png", p_alpha_shannon)
-ggsave("results/16S_results/figures/beta_diversity_jaccard.png", p_beta_jaccard)
-ggsave("results/16S_results/figures/phylum_barplot.png", p_phylum_barplot)
+ggsave("results/16S_results/figures/alpha_diversity_shannon.png", p_alpha_shannon, width = 8, height = 6, units = "in", dpi = 300)
+ggsave("results/16S_results/figures/beta_diversity_jaccard.png", p_beta_jaccard, width = 8, height = 6, units = "in", dpi = 300)
+ggsave("results/16S_results/figures/phylum_barplot.png", p_phylum_barplot, width = 8, height = 6, units = "in", dpi = 300)
 saveRDS(phyloseq_obj_basic, "data/processed/16S_processed/phyloseq_object_basic.rds")
 saveRDS(phyloseq_rarefied_basic, "data/processed/16S_processed/phyloseq_object_rarefied_basic.rds")
 saveRDS(phyloseq_obj_common_features, "data/processed/16S_processed/phyloseq_object_common_features_for_taxa.rds")
