@@ -4,3 +4,5 @@
 .Rproj.user/
 .Rprofile
 *.Rproj
+# macOS specific files
+.DS_Store
